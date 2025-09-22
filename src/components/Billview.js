@@ -8,6 +8,8 @@ export default function Billview(props) {
   const [price, setPrice] = useState(props.price);
   const [quantity, setQuantity] = useState(props.quantity);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const handleUpdateClick = () => {
     setShowModal(true); 
   };
@@ -16,7 +18,7 @@ export default function Billview(props) {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8080/bill/updateproduct/${props.id}`, {
+      const response = await axios.put(`${baseUrl}/bill/updateproduct/${props.id}`, {
         name,
         price,
         quantity,
@@ -32,7 +34,7 @@ export default function Billview(props) {
   const deleteproduct = async (id)=>{
       try {
           if (window.confirm('Are you sure you want to remove the Product')){
-            const response = await axios.delete(`http://localhost:8080/bill/deleteproduct/${id}`);
+            const response = await axios.delete(`${baseUrl}/bill/deleteproduct/${id}`);
             console.log(response.data);
             window.location.reload();
           }

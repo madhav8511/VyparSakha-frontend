@@ -100,8 +100,10 @@ function save_pdf(customer, products) {
   // Save PDF
   doc.save("Bill.pdf");
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // Delete All Bills from Database and Clear Local Storage
-  axios.delete("http://localhost:8080/bill/deleteAll")
+  axios.delete(`${baseUrl}/bill/deleteAll`)
     .then(response => {
       console.log(response.data);
     })
@@ -120,6 +122,8 @@ export default function Bill() {
     const savedCustomer = localStorage.getItem("customer");
     return savedCustomer ? JSON.parse(savedCustomer) : { name: "", mobile: "", address: "" };
   });
+
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const [item, setItem] = useState({ name: "", quantity: 0, price: 0 });
   const [products, setProducts] = useState([]);
@@ -143,13 +147,13 @@ export default function Bill() {
   };
 
   const getproduct = async ()=>{
-    const product = await axios.get("http://localhost:8080/bill/getproduct");
+    const product = await axios.get(`${baseUrl}/bill/getproduct`);
     const json = await product.data;
     setProducts(json);
   }
 
   const handleClick = async(e) => {
-    const product = await axios.post("http://localhost:8080/bill/addproduct",{
+    const product = await axios.post(`${baseUrl}/bill/addproduct`,{
       name : item.name, price: item.price, quantity: item.quantity
     });
     console.log(product.data);

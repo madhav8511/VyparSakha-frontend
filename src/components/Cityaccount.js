@@ -7,12 +7,14 @@ export default function Cityaccount() {
 
     let city = localStorage.getItem("city-name");
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const [user,setUser] = useState({name:"",mobileno:"",address:city});
     const [newuser,setNewuser] = useState({name:"",mobileno:"",address:city});
 
     const addUser = async (name, mobileno, address) => {
     try {
-        const response = await axios.post(`http://localhost:8080/user/createUser`, {
+        const response = await axios.post(`${baseUrl}/user/createUser`, {
         name,
         mobileno,
         address
@@ -36,7 +38,7 @@ export default function Cityaccount() {
 
     const getUser = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/user/getbycity?address=${city}`, {
+            const response = await fetch(`${baseUrl}/user/getbycity?address=${city}`, {
                 method: 'GET'
             });
 

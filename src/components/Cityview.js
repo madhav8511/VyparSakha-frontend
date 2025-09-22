@@ -8,10 +8,12 @@ export default function Cityview(props) {
         localStorage.setItem("city-name",name);
     }
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const deleteCity = async (id)=>{
         try {
             if (window.confirm('Are you sure you want to delete the city')){
-              const response = await axios.delete(`http://localhost:8080/city/deletecity/${id}`);
+              const response = await axios.delete(`${baseUrl}/city/deletecity/${id}`);
               console.log(response.data);
               window.location.reload();
             }

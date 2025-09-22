@@ -5,8 +5,10 @@ export default function Image() {
     const id = localStorage.getItem("trans-token");
     const [photo, setPhoto] = useState([]);
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const getImage = async () => {
-        const response = await axios(`http://localhost:8080/trans/gettrans/${id}`);
+        const response = await axios(`${baseUrl}/trans/gettrans/${id}`);
         setPhoto(response.data.images);
     };
 

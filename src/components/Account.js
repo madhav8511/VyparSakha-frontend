@@ -5,9 +5,11 @@ export default function Account() {
 
     const [user,Setuser] = useState(null);
     const [searchName, setSearchName] = useState('');
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
     const getAlluser = async()=>{
-        const response = await fetch("http://localhost:8080/user/",{
+        const response = await fetch(`${baseUrl}/user/`,{
             method: 'GET'
         });
         const json = await response.json();
@@ -15,7 +17,7 @@ export default function Account() {
     }
 
     const handleSearch = async () => {
-        const response = await fetch(`http://localhost:8080/user/searchuser?name=${searchName}`, {
+        const response = await fetch(`${baseUrl}/user/searchuser?name=${searchName}`, {
             method: 'GET'
         });
         const json = await response.json();

@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 
 const User = (props)=> {
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const deleteUser = async (id) => {
       try {
           if (window.confirm('Are you sure you want to delete the user')){
-            const response = await axios.delete(`http://localhost:8080/user/deleteUser/${id}`);
+            const response = await axios.delete(`${baseUrl}/user/deleteUser/${id}`);
             console.log(response.data);
             window.location.reload();
           }
@@ -18,7 +20,7 @@ const User = (props)=> {
     };
 
     const setData = async (name,mobileno)=>{
-        const response = await axios.get(`http://localhost:8080/user/verifyUser?mobileno=${mobileno}`);
+        const response = await axios.get(`${baseUrl}/user/verifyUser?mobileno=${mobileno}`);
         localStorage.setItem("token",response.data);
         localStorage.setItem("name",name);
         localStorage.setItem("mob",mobileno);

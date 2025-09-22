@@ -96,8 +96,10 @@ export default function Transaction() {
     const name = localStorage.getItem('name');
     const phonenum = localStorage.getItem('mob');
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const getTransaction = async () => {
-        const response = await fetch('http://localhost:8080/trans/getbyUser', {
+        const response = await fetch(`${baseUrl}/trans/getbyUser`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +115,7 @@ export default function Transaction() {
         // Ensure the phone number starts with "+91"
         const formattedTo = to.startsWith("+") ? to : `+91${to}`;
     
-        const response = await fetch('http://localhost:8080/sms/send-sms', {
+        const response = await fetch(`${baseUrl}/sms/send-sms`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -138,7 +140,7 @@ export default function Transaction() {
                     formData.append('billimage', selectedFiles[i]);
                 }
 
-                const res = await axios.post('http://localhost:8080/uploads/images', formData, {
+                const res = await axios.post(`${baseUrl}/uploads/images`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'auth-token': localStorage.getItem('token')
@@ -148,7 +150,7 @@ export default function Transaction() {
                 json = res.data;
             }
 
-            const response = await fetch('http://localhost:8080/trans/createTransaction', {
+            const response = await fetch(`${baseUrl}/trans/createTransaction`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

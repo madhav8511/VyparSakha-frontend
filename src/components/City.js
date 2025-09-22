@@ -6,8 +6,10 @@ export default function City() {
 
     const [city,setCity] = useState(null);
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const getcity = async ()=>{
-        const response = await fetch("http://localhost:8080/city",{
+        const response = await fetch(`${baseUrl}/city`,{
             method: 'GET'
         });
         const json = await response.json();
@@ -20,7 +22,7 @@ export default function City() {
 
     const addCity = async (name)=>{
         try {
-            const response = await axios.post(`http://localhost:8080/city/addcity`, {
+            const response = await axios.post(`${baseUrl}/city/addcity`, {
                 name
             });
             console.log(response.data); // Assuming response data is JSON

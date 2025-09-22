@@ -11,6 +11,8 @@ export default function Transview(props) {
     const [date,setDate] = useState(props.date.substring(0,10));
     const leftoverPart = props.date.substring(10);
 
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+
     const deleteTransaction = async (id)=>{
         if (window.confirm('Are you sure you want to delete the transaction')){
 
@@ -18,14 +20,14 @@ export default function Transview(props) {
             const imageUrls = props.images;
             // console.log(imageUrls);
 
-            const response = await axios.delete(`http://localhost:8080/trans/deletetrans/${id}`);
+            const response = await axios.delete(`${baseUrl}/trans/deletetrans/${id}`);
             console.log('Transaction deleted:', response.data);
 
             window.location.reload();
           
             // // Check if imageUrls is defined and not empty
             if (imageUrls && imageUrls.length > 0) {
-              const response_1 = await axios.delete('http://localhost:8080/uploads/deleteimage', {
+              const response_1 = await axios.delete(`${baseUrl}/uploads/deleteimage`, {
                 data: { imageUrls },
                 headers: {
                   'Content-Type': 'application/json'
@@ -47,7 +49,7 @@ export default function Transview(props) {
     e.preventDefault();
     try {
         const fullDate = date + leftoverPart;
-        const response = await axios.put(`http://localhost:8080/trans/updatetransaction/${props.id}`, {
+        const response = await axios.put(`${baseUrl}/trans/updatetransaction/${props.id}`, {
             amount,
             description,
             type,
