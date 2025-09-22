@@ -122,6 +122,7 @@ export default function Transaction() {
         });
     
         const data = await response.json();
+        window.alert("Message Sent Successfully");
         console.log(data);
     };
     
